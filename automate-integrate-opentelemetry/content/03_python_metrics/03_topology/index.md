@@ -60,13 +60,4 @@ Under the Service Metrics if we drop down the menu we can see our OpenTelemetry 
 
 ![Topology 4](../../../assets/images/03-03-uas_otel_metrics.png)
 
-This completes connecting our OpenTelemetry metrics to our Python Service! 
-
-
-
-
-
-
-
-
-
+This completes connecting our OpenTelemetry metrics to our Python Service in the Dynatrace topology! 

@@ -1,60 +1,72 @@
-## Creating alerts in Dynatrace
+# Creating alerts in Dynatrace
 
-alerting (auto-adaptive / seasonal baseline)
+Task: alerting (auto-adaptive / seasonal baseline)
 
 Observe: measurements on demand
 
 Understand: dynatrace dimensions & metrics
 
-### Davis Exploritory Anlysis
+# Davis Exploritory Analysis
 
 Quickly identify observability signals relevant to any signal behavior (for example, a spike on a chart) that you want to investigate. Now that our metrics are connected to the topology they can be included in this anlysis. 
 
 Highlight an area in the unified anlysis screen until Anlyze is a teal color. Click Anlyze to trigger the anlysis:
 
-<Insert GIF>
+![Davis Analysis](../../../assets/images/03-04-davis_adhock.gif)
 
 Some things to note:
 - Every data analysis relies on the quality of your data. The quality of the results significantly improves when you select a phenomenon correctly.
 - Causal correlation analysis requires that portions of normal behavior in a reference time series be selected–both before and after any phenomenon under analysis. For a spike analysis, a rule of thumb is that the spike itself should cover a third of the reference time series, with one third before and one third after the spike.
 
-### Metric Events (Alerting)
+# Metric Events (Alerting)
 Lets create an Auto Adaptive baseline metric event for the `perform.opentelemetry.hot.process_duration` metric. 
 
 Select the metric from the drop down and click the elipse `...` next to the metric and select `Create metric event`:
 
-<INSERT GIF>
+![Create Event](../../../assets/images/03-04-create_event.png)
 
-By navigating from the Service screen we can see Dynatrace has pre-populated the `Metric selector` for us determining what metric the event will be based off of. 
+Set the following:
 
-Expanding the `Advanced query definition` we can set an offset if our metrics have latency. 
+| Field | Value |
+| ------ | ------------- |
+| Summary | `ProcessDuration`  |
 
-We'll set our `Model type` to `Auto-adaptive threshold` and set `Number of signal fluctions`  to 1. Below in the `Alert preview` select `Service=pysrvc svc on port 8090` to get the alert preview:
+The `Metric selector` is pre-populated for us since we navigated from the Service screen. 
 
-<INSERT GIF>
+Set the following in the `Monitoring strategy` section:
 
-Hover over the chart to see the upper limit:
+| Field | Value |
+| ------ | ------------- |
+| Model Type | `Auto-adaptive threshold`  |
+| Number of signal fluctuations | `1` |
+| Alert condition | `Alert if metric is outside` | 
 
-<INSERT GIF>
+In the `Alert preview` select `Service=pysrvc svc on port 8090` as the Dimension Value to get the alert preview:
 
-Now change the `Number of signal fluctions` to 10 to see how this changes the upper limit - and therefore the senesitivity - of our alert:
+![Alert Preview](../../../assets/images/03-04-alert_preview.png)
 
-<INSERT GIF>
+By changing the `Number of signal fluctions` to 10 to see how this changes the upper limit - and therefore the senesitivity - of our alert:
 
-Alerting sensitiviy is also based off a sliding window - by default, any three one-minute samples out of five must violate your threshold to raise an event; and five one-minute samples must be back to normal to close this event. You can set a sliding window of up to 60 minutes.
+![Alert Preview Sensitivity](../../../assets/images/03-04-alert_preview_sensitivity.png)
 
-![Sliding Window](../assets/images/sliding-window-example.jpg)
+You can also adjust the sensitivity by modifiying the number of violating samples within a timeframe to trigger/close the alert - you can see this under `Advanced model properties: 
 
-You can adjust these settings under the `Advanced model properties` section of the metric event configuration:
+![Violating Samples](../../../assets/images/03-04-violating_samples.png)
 
-<INSERT GIF>
+Here is a good visualization of how this works:
 
-Complete the metric event setup by giving it a Title and optionally set the Event type to be indicitive of the alert being raised:
+![Sliding Window](../../../assets/images/03-04-sliding-window-example.jpg)
 
-<INSERT GIF>
+Complete the metric event setup by giving it a Title and optionally set the Event type to be indicitive of the alert being raised and click `Save Changes`.
 
-You can also optionally add properites to be attached to the event as well as a dimension key - for the purposes of our alert lets leave these settings blank and save our new metric event by clicking `Save Changes`.
-
-### Hands on
+# Your Task:
 
 Now that we've created an Auto-adaptive baseline you'll create a Seasonal Baseline on `perform.opentelemetry.hot.requests_count`. 
+- Adjust the Tolerance to see how the band changes in the alert preview 
+- Change the Advanced Model Properties for the number of violating samples, sliding window, and dealerting samples. 
+- Save your alert
+
+> Note: becuase there isn't much data in your envionrment you will likley get a warning, you can ignore this - the alert will still be created: 
+```
+Using auto-adaptive threshold, time series is not suitable for seasonal model. 
+```

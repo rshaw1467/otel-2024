@@ -254,12 +254,6 @@ def calc():
     return make_response({}, 200)
 ```
 
-Navigate in your Dynatrace client to the Metrics Explorer and type in `perform.opentelemetry` to see the metrics populating in Dynatrace:
-
-```
-Add GIF of navigating to metric epxlorer
-```
-
 So we setup our MeterProvider holding our configuration for the Dynatrace Metric Exporter acting as our MetricReader/Exporter. We used our MeterProvider to create a Meter instance which we then used to difine our Instruments and populated metrics resulting in the following diagram:
 
 ```java
@@ -277,6 +271,10 @@ So we setup our MeterProvider holding our configuration for the Dynatrace Metric
 |     ...          |                 +-----------------+             +--------------+
 +------------------+
 ```
+
+Navigate in your Dynatrace client to the Metrics Explorer and type in `perform.opentelemetry` to see the metrics populating in Dynatrace:
+
+![Meter Instrument Types](../../../assets/images/03-02-metric_browser.png)
 
 You might have also noticed that there are two addtional metrics showing up as well; these are created automatically by the Flask automatic instrumentation: 
 
