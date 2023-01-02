@@ -6,7 +6,7 @@ Goal: collect a synchronous response time metric
 
 ### How to collect metrics in Python applications with OpenTelemetery?
 
-Reference: Dynatrace documentation 123
+Reference: Dynatrace documentation
 - [OpenTelemetry metric concepts](https://www.dynatrace.com/support/help/shortlink/opentelemetry-metric-concepts)
 - [OpenTelemetry instrument code samples](https://www.dynatrace.com/support/help/shortlink/opentelemetry-instrument-examples)
 
@@ -20,11 +20,11 @@ Reference: Dynatrace documentation 123
 
 The Metrics API consists of these main components:
 
-`MeterProvider`: The MeterProvider is responsible for creating Meter instances and is expected to be the stateful object that holds our configuration:
+`MeterProvider`: The MeterProvider is responsible for creating Meter instances and is expected to be the stateful object that holds our configuration
 
 `Meter`: is the class responsible for creating Instruments and it does not hold any configuration. 
 
-`Instrument`: is responsible for reporting Measurements.Each Instrument will have the following fields:
+`Instrument`: is responsible for reporting Measurements. Each Instrument will have the following fields:
 - The name of the Instrument
 - The kind of the Instrument - whether it is a Counter or one of the other kinds, whether it is synchronous or asynchronous
 - An optional unit of measure
@@ -113,7 +113,7 @@ Starting with `self.resource_props = self.get_resource_props()` refrences line `
             return resource
 ```
 
-On line `25` we beging our exporter setup with `self.setup_exporters()` with our MeterProvider confiugration held in the variable `metrics` on line `74`. 
+On line `25` we bergin our exporter setup with `self.setup_exporters()` which calls oure `setup_exporters()` function and stores our MeterProvider confiugration in the variable `metrics` on line `74`. 
 
 Here we tell our MeterProvider to use the Dynatrace Metric Exporter as the MetricReader/Exporter with `configure_dynatrace_metrics_export`.
 
