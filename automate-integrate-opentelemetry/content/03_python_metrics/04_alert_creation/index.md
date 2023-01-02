@@ -69,6 +69,6 @@ Now that we've created an Auto-adaptive baseline you'll create a Seasonal Baseli
 - Save your alert
 
 > Note: becuase there isn't much data in your envionrment you will likley get a warning, you can ignore this - the alert will still be created: 
-```
-Using auto-adaptive threshold, time series is not suitable for seasonal model. 
-```
+
+> `Using auto-adaptive threshold, time series is not suitable for seasonal model. `
+
