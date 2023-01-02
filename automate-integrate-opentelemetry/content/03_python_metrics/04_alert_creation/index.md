@@ -41,6 +41,8 @@ Set the following in the `Monitoring strategy` section:
 | Number of signal fluctuations | `1` |
 | Alert condition | `Alert if metric is outside` | 
 
+![Alert Preview](../../../assets/images/03-04-alert_setup.png)
+
 In the `Alert preview` select `Service=pysrvc svc on port 8090` as the Dimension Value to get the alert preview:
 
 ![Alert Preview](../../../assets/images/03-04-alert_preview.png)

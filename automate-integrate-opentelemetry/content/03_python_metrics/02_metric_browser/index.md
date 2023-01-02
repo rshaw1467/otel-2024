@@ -14,7 +14,7 @@ Let's create a heatmap with the following settings:
 - Green > 0
 - Yellow > 3
 - Red > 5
-4. Pin it to a new dashboard with the title `Request Count`
+4. Pin the tile with the title `Request Count` to a new dashboard:
 
 ![Settings](../../../assets/images/03-02-heatmap.png)
 
@@ -30,12 +30,10 @@ Let's create a heatmap with the following settings:
 
 ![Settings](../../../assets/images/03-02-single_value.png)
 
-Bonus Tasks
-
 <details>
     <summary>Bonus Tasks</summary>
 
-Add another tile, a Honeycomb, with the metric `perform.opentelemetry.hot.cpu_usage` showing the label and setting Green/Yellow/Red thresholds. Rename the metric to `CPU Usage` and pin this to the dashboard with the title `CPU Usage` and rename the dashboard to Python App Overview. 
+Add another tile, a Honeycomb, with the metric `perform.opentelemetry.hot.cpu_usage` showing the labels and setting thresholds. Rename the metric to `CPU Usage` and pin this to the dashboard with the title `CPU Usage` and rename the dashboard to `Python App Overview`. 
 
 Your dashboard should look similar to this:
 
