@@ -6,7 +6,7 @@ Goal: collect a synchronous response time metric
 
 ### How to collect metrics in Python applications with OpenTelemetery?
 
-Reference: Dynatrace documentation 
+Reference: Dynatrace documentation 123
 - [OpenTelemetry metric concepts](https://www.dynatrace.com/support/help/shortlink/opentelemetry-metric-concepts)
 - [OpenTelemetry instrument code samples](https://www.dynatrace.com/support/help/shortlink/opentelemetry-instrument-examples)
 
