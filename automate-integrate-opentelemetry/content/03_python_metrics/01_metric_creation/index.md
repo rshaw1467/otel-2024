@@ -113,7 +113,7 @@ Starting with `self.resource_props = self.get_resource_props()` refrences line `
             return resource
 ```
 
-On line `25` we bergin our exporter setup with `self.setup_exporters()` which calls oure `setup_exporters()` function and stores our MeterProvider confiugration in the variable `metrics` on line `74`. 
+On line `25` we begin our exporter setup with `self.setup_exporters()` which calls the `setup_exporters()` function and stores our MeterProvider confiugration in the variable `metrics` on line `74`. 
 
 Here we tell our MeterProvider to use the Dynatrace Metric Exporter as the MetricReader/Exporter with `configure_dynatrace_metrics_export`.
 
@@ -254,7 +254,9 @@ def calc():
     return make_response({}, 200)
 ```
 
-So we setup our MeterProvider holding our configuration for the Dynatrace Metric Exporter acting as our MetricReader/Exporter. We used our MeterProvider to create a Meter instance which we then used to difine our Instruments and populated metrics resulting in the following diagram:
+To summarize what we've done:
+
+So we setup our MeterProvider holding our configuration for the Dynatrace Metric Exporter acting as our MetricReader/Exporter. We used our MeterProvider to create a Meter instance which we then in turn used to create our Instruments and send measurements:
 
 ```java
 +------------------+
@@ -271,6 +273,8 @@ So we setup our MeterProvider holding our configuration for the Dynatrace Metric
 |     ...          |                 +-----------------+             +--------------+
 +------------------+
 ```
+
+# Finding the measurments in Dynatrace
 
 Navigate in your Dynatrace client to the Metrics Explorer and type in `perform.opentelemetry` to see the metrics populating in Dynatrace:
 
