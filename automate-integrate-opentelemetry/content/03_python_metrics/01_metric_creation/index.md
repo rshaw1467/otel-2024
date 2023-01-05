@@ -296,13 +296,99 @@ perform.opentelemetry.hot.http.server.duration
     - `description`
     - `unit` 
 - Use `.create_histogram` to create a histogram instrument
+
+<details>
+  <summary>Hint</summary>
+
+Copy the `create_counter_instrument` on line `85` as a starting point and modify it for your histogram instrument:
+
+```python
+    def create_counter_instrument(self, name: str, description: str):
+        self.metrics[name] = self.meter.create_counter(
+            name=name, 
+            description=description, 
+            unit="1"
+        )
+```
+
+</details>
+
+<details>
+  <summary>Solution</summary>
+  
+  ```python
+        def create_histogram_instrument(self, name: str, description: str, unit: str):
+            self.metrics[name] = self.meter.create_histogram(
+                name=name,
+                description=description,
+                unit=unit
+            )
+```
+
+</details>
+
 2. Create a call to the `create_histogram_instrument` function on line `39` (will be bery similar to `self.create_counter_instrument` on line `35`) passing the following parameters:
 - `"process_duration"`
 - `"Duration of Fibonacci calculation, in milliseconds"`
 - `"ms"`
-3. Open `pysrvc/utils.py` and between line `29-30` add a line to populate your measurment for the histogram passing the variable `duration` as the metric and add an attribute with the key `"number"` and variable `n` as the value.
-- Similar format to line `23` in `pysrvc/main.py`
+
+<details>
+  <summary>Hint</summary>
+
+Copy the `self.create_counter_instrument` on line `35` as a starting point:
+
+```python
+    def create_counter_instrument(self, name: str, description: str):
+        self.metrics[name] = self.meter.create_counter(
+            name=name, 
+            description=description, 
+            unit="1"
+        )
+```
+
+</details>
+
+<details>
+  <summary>Solution</summary>
+  
+```python
+            self.create_histogram_instrument(
+                "process_duration",
+                "Duration of Fibonacci calculation, in milliseconds",
+                "ms"
+            )
+```
+
+</details>
+
+3. Open `pysrvc/utils.py` and between line `29-30` add a line to populate your measurment for the histogram (similar to line `23` in `pysrvc/main.py`) passing the variable `duration` as the metric and add an attribute with the key `"number"` and variable `n` as the value.
 - Reference the table in the `Passing Measurments...` section to find the correct function/callback to populate a metric for a Histogram
+
+<details>
+  <summary>Hint</summary>
+
+Copy the `self.create_counter_instrument` on line `35` as a starting point:
+
+```python
+    def create_counter_instrument(self, name: str, description: str):
+        self.metrics[name] = self.meter.create_counter(
+            name=name, 
+            description=description, 
+            unit="1"
+        )
+```
+
+</details>
+
+<details>
+  <summary>Solution</summary>
+  
+```python
+        ot.metrics["process_duration"].record(duration, {"number": n})
+```
+
+</details>
+
 4. Restart the application and check in the metric explorer in the Dynatrace client to see if data is populating (this can take a few minutes)
 ```
 $ Ctrl+z​
@@ -314,33 +400,6 @@ $ mvn spring-boot:run
 Run the following:
 ```
 $ sudo kill -9 `sudo lsof -t -i:8080`
-```
-
-</details>
-
-
-<details>
-  <summary>Solution here</summary>
-  
-  ```python
-        def create_histogram_instrument(self, name: str, description: str, unit: str):
-            self.metrics[name] = self.meter.create_histogram(
-                name=name,
-                description=description,
-                unit=unit
-            )
-```
-
-```python
-            self.create_histogram_instrument(
-                "process_duration",
-                "Duration of Fibonacci calculation, in milliseconds",
-                "ms"
-            )
-```
-
-```python
-        ot.metrics["process_duration"].record(duration, {"number": n})
 ```
 
 </details>
