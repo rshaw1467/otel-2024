@@ -4,7 +4,7 @@ In addition to traces, Open Telemetry allows for metrics collection
 
 Goal: collect a synchronous response time metric
 
-### How to collect metrics in Python applications with OpenTelemetery?
+### 1.  OpenTelemetery Metrics Concepts
 
 Reference: Dynatrace documentation
 - [OpenTelemetry metric concepts](https://www.dynatrace.com/support/help/shortlink/opentelemetry-metric-concepts)
@@ -16,7 +16,7 @@ Reference: Dynatrace documentation
 1. Recording a measurement (sync & async)
 1. Task: Create a histogram metric
 
-# OpenTelemetry Metric Concepts
+# 1. OpenTelemetry Metric Concepts
 
 The Metrics API consists of these main components:
 
@@ -56,7 +56,7 @@ Here is an example of the object hierarchy inside a process instrumented with th
         +-- instruments...
 ```
 
-## Meter Provider
+# 2. Meter Provider Configuration 
 
 Navigate to the following file:
 
@@ -155,9 +155,13 @@ Finally we create a dictonary on line `26` which will end up referencing our Ins
     self.metrics = {}
 ```
 
-That completes the setup of our MeterProvider and MeterReader/Exporter.  
+That completes the setup of our MeterProvider and MeterReader/Exporter:
 
-## Meters & Instruments
+```java
++-- MeterProvider(dynatrace_metrics_export)
+```
+
+# 3. Meter & Instrument Creation 
 
 The Meter can create the following Instruments:
 
@@ -208,7 +212,17 @@ To recap we:
     - Observable Guage
     - Counter
 
-## Passing measurements to our Instruments 
+```java
++-- MeterProvider(dynatrace_metrics_export)
+    |
+    +-- Meter(name='perform-hot', version='v1.0.0')
+    |   |
+    |   +-- Instrument<Asynchronous Gauge, int>(name='cpu_usage', description='CPU Usage...', unit='1')
+    |   |
+    |   +-- Instrument<Synchronous Counter, int>(name='requests_count', description='Counts the number...', unit='1')
+```
+
+# 4. Passing measurements to Instruments 
 
 Depending on the instrument type there are different functions used for populating measurements:
 
@@ -274,7 +288,7 @@ So we setup our MeterProvider holding our configuration for the Dynatrace Metric
 +------------------+
 ```
 
-# Finding the measurments in Dynatrace
+# 5. Finding the measurments in Dynatrace
 
 Navigate in your Dynatrace client to the Metrics Explorer and type in `perform.opentelemetry` to see the metrics populating in Dynatrace:
 
@@ -287,7 +301,7 @@ perform.opentelemetry.hot.http.server.active_requests
 perform.opentelemetry.hot.http.server.duration
 ```
 
-# Your Task: create and populate a histogram instrument
+# 6. Hands On: Create and populate a histogram instrument
 
 1. Create a function called `create_histogram_instrument` on line `92` (similar to the `create_counter_instrument` line `85`) used to define our instrument:
 - The function will take 4 inputs:
@@ -335,7 +349,7 @@ Copy the `create_counter_instrument` on line `85` as a starting point and modify
 <details>
   <summary>Hint</summary>
 
-Copy the `self.create_counter_instrument` on line `35` as a starting point:
+Copy the `self.create_counter_instrument` on line `35` as a starting point and modify it for your histogram instrument:
 
 ```python
     def create_counter_instrument(self, name: str, description: str):
@@ -363,19 +377,15 @@ Copy the `self.create_counter_instrument` on line `35` as a starting point:
 
 3. Open `pysrvc/utils.py` and between line `29-30` add a line to populate your measurment for the histogram (similar to line `23` in `pysrvc/main.py`) passing the variable `duration` as the metric and add an attribute with the key `"number"` and variable `n` as the value.
 - Reference the table in the `Passing Measurments...` section to find the correct function/callback to populate a metric for a Histogram
+- change the dictionary reference to the name of the new histogram instrument `"process_duration"`
 
 <details>
   <summary>Hint</summary>
 
-Copy the `self.create_counter_instrument` on line `35` as a starting point:
+Copy the line `23` as a starting point:
 
 ```python
-    def create_counter_instrument(self, name: str, description: str):
-        self.metrics[name] = self.meter.create_counter(
-            name=name, 
-            description=description, 
-            unit="1"
-        )
+    ot.metrics["requests_count"].add(1, {"request": "/quote"})
 ```
 
 </details>
