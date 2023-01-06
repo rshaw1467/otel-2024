@@ -382,7 +382,7 @@ Copy the `self.create_counter_instrument` on line `35` as a starting point and m
 <details>
   <summary>Hint</summary>
 
-Copy the line `23` as a starting point:
+Copy the line `23` as a starting point and modify it for your histogram instrument:
 
 ```python
     ot.metrics["requests_count"].add(1, {"request": "/quote"})
