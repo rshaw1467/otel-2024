@@ -5,22 +5,30 @@ Navigate to the metric brower and search for the text `perform.opentelemetry`. E
 ![Settings](../../../assets/images/03-02-metric_browser.png)
 
 Let's create a heatmap with the following settings:
+1. Select `Heatmap` chart type
 1. Split by Dimension `request`
 1. Show legend `off`
 1. Show Labels `on`
-1. Rename our metric to `CPU Usage`
 1. Y axis: `Split by Dimensions`
+1. Rename our metric to `CPU Usage`
 1. Set the threshold as:
 - Green > 0
-- Yellow > 3
-- Red > 5
+- Yellow > 2
+- Red > 3
 4. Pin the tile with the title `Request Count` to a new dashboard:
 
 ![Settings](../../../assets/images/03-02-heatmap.png)
 
+<details>
+  <summary>Solution</summary>
+  
+![Settings](../../../assets/images/03-02-heatmap_solution.png)
+
+</details>
+
 ## Task: Add a Single Value tile to the new dashboard
 
-1. Select the `perform.opentelemetry.hot.http.server_duration` metric
+1. Select the `perform.opentelemetry.hot.http.server.duration` metric
 1. Choose `Single value` as the chart type
 1. Set your thresholds as:
 * Green > 0
@@ -31,7 +39,14 @@ Let's create a heatmap with the following settings:
 ![Settings](../../../assets/images/03-02-single_value.png)
 
 <details>
-    <summary>Bonus Tasks</summary>
+  <summary>Solution</summary>
+  
+![Settings](../../../assets/images/03-02-singleValue_solution.png)
+
+</details>
+
+<details>
+    <summary><b>Bonus Tasks</b></summary>
 
 Add another tile, a Honeycomb, with the metric `perform.opentelemetry.hot.cpu_usage` showing the labels and setting thresholds. Rename the metric to `CPU Usage` and pin this to the dashboard with the title `CPU Usage` and rename the dashboard to `Python App Overview`. 
 
