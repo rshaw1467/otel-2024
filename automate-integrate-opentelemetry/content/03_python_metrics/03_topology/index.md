@@ -6,11 +6,9 @@ Observe: all metrics in the new screen
 
 Understand: Service, Trace, Metrics in context of topology
 
-# Unified Anlysis & Topology 
+# Linking metrics to the Dynatrace Topology
 
-## Linking your metrics to the Dynatrace Topology
-
-1. Go to `Settings >  Toplogy model > Generic types > Add type definition` and start by completeing the following feilds and click on `Add extraction rule`:
+### 1.  Go to `Settings >  Toplogy model > Generic types > Add type definition` and start by completeing the following feilds and click on `Add extraction rule`:
 
 | Field | Value |
 | ------ | ------------- |
@@ -20,7 +18,7 @@ Understand: Service, Trace, Metrics in context of topology
 
    ![Topology 1](../../../assets/images/03-03-topology_1.png)
 
-4. Fill out the following fields and click on `Add Source`:
+### 2. Fill out the following fields and click on `Add Source`:
 
 | Field | Value |
 | ------ | ------------- |
@@ -30,7 +28,7 @@ Understand: Service, Trace, Metrics in context of topology
 
    ![Topology 2](../../../assets/images/03-03-topology_2.png)
 
-5. Fill out the following values and click on `Add dimensions filter`
+### 3. Fill out the following values and click on `Add dimensions filter`
 
 | Field | Value |
 | ------ | ------------- |
@@ -39,7 +37,7 @@ Understand: Service, Trace, Metrics in context of topology
 
    ![Topology 3](../../../assets/images/03-03-topology_3.png)
 
-6. Finally, fill out the following values and click on `Save Changes`:
+### 4. Finally, fill out the following values and click on `Save Changes`:
 
 | Field | Value |
 | ------ | ------------- |
@@ -48,7 +46,7 @@ Understand: Service, Trace, Metrics in context of topology
 
    ![Topology 4](../../../assets/images/03-03-topology_4.png)
 
-## Visualize Metrics alongside OOTB metrics
+# Unified Alysis Screen
 
 Now that we have our topology we can navigate to the Service screen for our python service to see the result
 
