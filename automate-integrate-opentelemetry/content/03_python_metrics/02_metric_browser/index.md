@@ -55,3 +55,14 @@ Your dashboard should look similar to this:
 ![Settings](../../../assets/images/03-02-dashboard.png)
 
 </details>
+
+<details>
+    <summary><b>Dashboard JSON</b></summary>
+
+Add another tile, a Honeycomb, with the metric `perform.opentelemetry.hot.cpu_usage` showing the labels and setting thresholds. Rename the metric to `CPU Usage` and pin this to the dashboard with the title `CPU Usage` and rename the dashboard to `Python App Overview`. 
+
+Your dashboard should look similar to this:
+
+![Settings](../../../assets/images/03-02-dashboard.png)
+
+</details>
