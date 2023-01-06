@@ -303,7 +303,7 @@ perform.opentelemetry.hot.http.server.duration
 
 # 6. Hands On: Create and populate a histogram instrument
 
-1. Create a function called `create_histogram_instrument` on line `92` (similar to the `create_counter_instrument` line `85`) used to define our instrument:
+1.Create a function called `create_histogram_instrument` on line `92` (similar to the `create_counter_instrument` line `85`) used to define our instrument:
 - The function will take 4 inputs:
     - `self`
     - `name`
@@ -340,7 +340,7 @@ Copy the `create_counter_instrument` on line `85` as a starting point and modify
 ```
 
 </details>
-
+<br />
 2. Create a call to the `create_histogram_instrument` function on line `39` (will be bery similar to `self.create_counter_instrument` on line `35`) passing the following parameters:
 - `"process_duration"`
 - `"Duration of Fibonacci calculation, in milliseconds"`
@@ -374,7 +374,7 @@ Copy the `self.create_counter_instrument` on line `35` as a starting point and m
 ```
 
 </details>
-
+<br />
 3. Open `pysrvc/utils.py` and between line `29-30` add a line to populate your measurment for the histogram (similar to line `23` in `pysrvc/main.py`) passing the variable `duration` as the metric and add an attribute with the key `"number"` and variable `n` as the value.
 - Reference the table in the `Passing Measurments...` section to find the correct function/callback to populate a metric for a Histogram
 - change the dictionary reference to the name of the new histogram instrument `"process_duration"`
@@ -398,24 +398,25 @@ Copy the line `23` as a starting point:
 ```
 
 </details>
-
+<br />
 4. Restart the application and check in the metric explorer in the Dynatrace client to see if data is populating (this can take a few minutes)
+
 ```
 $ Ctrl+z​
 $ mvn spring-boot:run
 ```
 <details>
-  <summary>My webserver won't restart</summary>
+  <summary>My webserver won't start</summary>
   
-Run the following:
+Run the following to kill any remaining processes on port 8080:
 ```
 $ sudo kill -9 `sudo lsof -t -i:8080`
 ```
 
 </details>
-
+<br />
 <details>
-  <summary>Optional: Add metrics in Java</summary>
+  <summary><b>Bonus Task: Add metrics in Java</b></summary>
   
 Open:
 
@@ -429,6 +430,7 @@ Your task is to populate a metric in the same `referenceCounter` instrument in b
 - pass `qoute` and `calc` respectivley as the `reference` attribute value
 
 Restart your applciaiton:
+
 ```
 $ Ctrl+z​
 $ mvn spring-boot:run
