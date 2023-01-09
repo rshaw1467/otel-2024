@@ -243,19 +243,19 @@ Open `pysrvc/utils.py` and between line `29-30` add a line to populate your meas
 - Reference the table in the `Passing Measurments...` section to find the correct function/callback to populate a metric for a Histogram
 - change the dictionary reference to the name of the new histogram instrument `"process_duration"`
 
-Once completed restart your applicaiton:
-
-```
-Ctrl+C
-mvn spring-boot:run
-```
-
 💡 **Hint**
 
 Copy the line `23` as a starting point and modify it for your histogram instrument:
 
 ```python
     ot.metrics["requests_count"].add(1, {"request": "/quote"})
+```
+
+Once completed restart your applicaiton:
+
+```
+Ctrl+C
+mvn spring-boot:run
 ```
 
 <details>
