@@ -1,5 +1,7 @@
 ## Metric Browser & Dashboards
 
+### 📌 Follow along
+
 Navigate to the metric brower and search for the text `perform.opentelemetry`. Expand `perform.opentelemetry.hot.requests_count` and click `Create chart` to open the data explorer
 
 ![Settings](../../../assets/images/03-02-metric_browser.png)
@@ -26,7 +28,11 @@ Let's create a heatmap with the following settings:
 
 </details>
 
-## Task: Add a Single Value tile to the new dashboard
+---
+
+### 📌 Task
+
+**Your Task:** Add a Single Value tile to the new dashboard
 
 1. Select the `perform.opentelemetry.hot.http.server.duration` metric
 1. Choose `Single value` as the chart type
@@ -45,13 +51,22 @@ Let's create a heatmap with the following settings:
 
 </details>
 
+---
+
 ### 📌 Bonus Task
+
+<details>
+  <summary>Expand should you choose to accept...</summary>
 
 Add another tile, a Honeycomb, with the metric `perform.opentelemetry.hot.cpu_usage` showing the labels and setting thresholds. Rename the metric to `CPU Usage` and pin this to the dashboard with the title `CPU Usage` and rename the dashboard to `Python App Overview`. 
 
 Your dashboard should look similar to this:
 
 ![Settings](../../../assets/images/03-02-dashboard.png)
+
+</details>
+
+---
 
 <details>
     <summary><b>Dashboard JSON</b></summary>
