@@ -1,10 +1,8 @@
-# Creating python metrics
+## Creating python metrics
 
 In addition to traces, Open Telemetry allows for metrics collection
 
 Goal: collect a synchronous response time metric
-
-### 1.  OpenTelemetery Metrics Concepts
 
 Reference: Dynatrace documentation
 - [OpenTelemetry metric concepts](https://www.dynatrace.com/support/help/shortlink/opentelemetry-metric-concepts)
@@ -16,7 +14,7 @@ Reference: Dynatrace documentation
 1. Recording a measurement (sync & async)
 1. Task: Create a histogram metric
 
-# 1. OpenTelemetry Metric Concepts
+### 1. OpenTelemetry Metric Concepts
 
 The Metrics API consists of these main components:
 
@@ -56,7 +54,7 @@ Here is an example of the object hierarchy inside a process instrumented with th
         +-- instruments...
 ```
 
-# 2. Meter Provider Configuration 
+### 2. Meter Provider Configuration 
 
 Navigate to the following file:
 
@@ -161,7 +159,7 @@ That completes the setup of our MeterProvider and MeterReader/Exporter:
 +-- MeterProvider(dynatrace_metrics_export)
 ```
 
-# 3. Meter & Instrument Creation 
+### 3. Meter & Instrument Creation 
 
 The Meter can create the following Instruments:
 
@@ -222,7 +220,7 @@ To recap we:
     |   +-- Instrument<Synchronous Counter, int>(name='requests_count', description='Counts the number...', unit='1')
 ```
 
-# 4. Passing measurements to Instruments 
+### 4. Passing measurements to Instruments 
 
 Depending on the instrument type there are different functions used for populating measurements:
 
@@ -288,7 +286,7 @@ So we setup our MeterProvider holding our configuration for the Dynatrace Metric
 +------------------+
 ```
 
-# 5. Finding the measurments in Dynatrace
+### 5. Finding the measurments in Dynatrace
 
 Navigate in your Dynatrace client to the Metrics Explorer and type in `perform.opentelemetry` to see the metrics populating in Dynatrace:
 
@@ -301,18 +299,22 @@ perform.opentelemetry.hot.http.server.active_requests
 perform.opentelemetry.hot.http.server.duration
 ```
 
-# 6. Hands On: Create and populate a histogram instrument
+### 6. Hands On: Create and populate a histogram instrument
 
-1. In the file `pysrvc/otel.py` create a function called `create_histogram_instrument` on line `92` (similar to the `create_counter_instrument` line `85`) used to define our instrument:
-- The function will take 4 inputs:
-    - `self`
-    - `name`
-    - `description`
-    - `unit` 
-- Use `.create_histogram` to create a histogram instrument
+---
 
-<details>
-  <summary>Hint</summary>
+#### 6.1
+
+In the file `pysrvc/otel.py` create a function called `create_histogram_instrument` on line `92` (similar to the `create_counter_instrument` line `85`) used to define our instrument:
+
+The function will take 4 inputs:
+- `self`
+- `name`
+- `description`
+- `unit`
+  - Use `.create_histogram` to create a histogram instrument
+
+💡 **Hint**
 
 Copy the `create_counter_instrument` on line `85` as a starting point and modify it for your histogram instrument:
 
@@ -325,29 +327,29 @@ Copy the `create_counter_instrument` on line `85` as a starting point and modify
         )
 ```
 
-</details>
-
 <details>
-  <summary>Solution</summary>
+  <summary>Expand for Solution</summary>
   
   ```python
-        def create_histogram_instrument(self, name: str, description: str, unit: str):
-            self.metrics[name] = self.meter.create_histogram(
-                name=name,
-                description=description,
-                unit=unit
-            )
-```
-
+  def create_histogram_instrument(self, name: str, description: str, unit: str):
+    self.metrics[name] = self.meter.create_histogram(
+    name=name,
+    description=description,
+    unit=unit
+  )
+  ```
 </details>
 
-2. Create a call to the `create_histogram_instrument` function on line `39` (will be bery similar to `self.create_counter_instrument` on line `35`) passing the following parameters:
+---
+
+#### 6.2
+
+Create a call to the `create_histogram_instrument` function on line `39` (will be bery similar to `self.create_counter_instrument` on line `35`) passing the following parameters:
 - `"process_duration"`
 - `"Duration of Fibonacci calculation, in milliseconds"`
 - `"ms"`
 
-<details>
-  <summary>Hint</summary>
+💡 **Hint**
 
 Copy the `self.create_counter_instrument` on line `35` as a starting point and modify it for your histogram instrument:
 
@@ -360,27 +362,27 @@ Copy the `self.create_counter_instrument` on line `35` as a starting point and m
         )
 ```
 
-</details>
-
 <details>
-  <summary>Solution</summary>
+  <summary>Expand for Solution</summary>
   
-```python
-            self.create_histogram_instrument(
-                "process_duration",
-                "Duration of Fibonacci calculation, in milliseconds",
-                "ms"
-            )
-```
-
+  ```python
+  self.create_histogram_instrument(
+  "process_duration",
+  "Duration of Fibonacci calculation, in milliseconds",
+  "ms"
+  )
+  ```
 </details>
 
-3. Open `pysrvc/utils.py` and between line `29-30` add a line to populate your measurment for the histogram (similar to line `23` in `pysrvc/main.py`) passing the variable `duration` as the metric and add an attribute with the key `"number"` and variable `n` as the value.
+---
+
+#### 6.3
+
+Open `pysrvc/utils.py` and between line `29-30` add a line to populate your measurment for the histogram (similar to line `23` in `pysrvc/main.py`) passing the variable `duration` as the metric and add an attribute with the key `"number"` and variable `n` as the value.
 - Reference the table in the `Passing Measurments...` section to find the correct function/callback to populate a metric for a Histogram
 - change the dictionary reference to the name of the new histogram instrument `"process_duration"`
 
-<details>
-  <summary>Hint</summary>
+💡 **Hint**
 
 Copy the line `23` as a starting point and modify it for your histogram instrument:
 
@@ -388,35 +390,37 @@ Copy the line `23` as a starting point and modify it for your histogram instrume
     ot.metrics["requests_count"].add(1, {"request": "/quote"})
 ```
 
-</details>
-
 <details>
-  <summary>Solution</summary>
+  <summary>Expand for Solution</summary>
   
-```python
-        ot.metrics["process_duration"].record(duration, {"number": n})
-```
-
+  ```python
+  ot.metrics["process_duration"].record(duration, {"number": n})
+  ```
 </details>
 
-4. Restart the application and check in the metric explorer in the Dynatrace client to see if data is populating (this can take a few minutes)
+---
+
+#### 6.4 Restart
+
+Restart the application and check in the metric explorer in the Dynatrace client to see if data is populating (this can take a few minutes)
 
 ```
-$ Ctrl+z​
-$ mvn spring-boot:run
+Ctrl+C
+mvn spring-boot:run
 ```
+
 <details>
   <summary>My webserver won't start</summary>
   
-Run the following to kill any remaining processes on port 8080:
-```
-$ sudo kill -9 `sudo lsof -t -i:8080`
-```
-
+  Run the following to kill any remaining processes on port 8080:
+  ```
+  $ sudo kill -9 `sudo lsof -t -i:8080`
+  ```
 </details>
-<br />
-<details>
-  <summary><b>Bonus Task: Add metrics in Java</b></summary>
+
+---
+
+### 📌 Bonus Task: Add metrics in Java
   
 Open:
 
@@ -432,8 +436,8 @@ Your task is to populate a metric in the same `referenceCounter` instrument in b
 Restart your applciaiton:
 
 ```
-$ Ctrl+z​
-$ mvn spring-boot:run
+Ctrl+C​
+mvn spring-boot:run
 ```
 
 Find the metric in the data explorer and check if you're new attribute values are showing up like so:
@@ -441,7 +445,7 @@ Find the metric in the data explorer and check if you're new attribute values ar
 ![Meter Instrument Types](../../../assets/images/03-01-java_metric_solution.png)
 
 <details>
-  <summary>Solution here</summary>
+  <summary>Expand for solution</summary>
   
   ```java
     public void handleQuote(final String reference) {
@@ -460,8 +464,5 @@ Find the metric in the data explorer and check if you're new attribute values ar
 			span.end();
 		}
 	}
-```
-
-</details>
-
+  ```
 </details>
