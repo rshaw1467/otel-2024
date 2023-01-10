@@ -22,33 +22,13 @@ Navigate to the following file:
 pysrvc/otel.py
 ```
 
-We will be using the variable `ot` again which holds the configuration for our OpenTelemetry Metrics setup (including the previously defined resource properties):
+We will be using the variable `ot` again which holds the configuration for our OpenTelemetry Metrics setup:
 
 ```python
 ot = CustomOpenTelemetry()
 ```
 
-```python
-    def get_resource_props(self):
-            # Basic resource details
-            resource = {
-                ResourceAttributes.SERVICE_NAME: "pysrvc svc on port 8090",
-                ResourceAttributes.SERVICE_VERSION: "v1.0.0",
-                "environment": "hotday"
-            }
-            # Get OneAgent's topology metadata and add to resource
-            try:
-                data = ''
-                with open("dt_metadata_e617c525669e072eebe3d0f08212e8f2.json") as f:
-                    data = json.load(open(f.read()))
-                resource.update(data)
-            except:
-                pass    
-
-            return resource
-```
-
-On line `25` in the `setup_exporters()` function under the trace setup we define our MeterProvider confiugration as the attribute `metrics` of `ot` on line `74` and configure the `configure_dynatrace_metrics_export`. 
+In the `setup_exporters(self)` our configuration starts on line `74` setting up our MeterProvider with `configure_dynatrace_metrics_export`. 
 
 ```python
         # Set up metrics export
@@ -90,7 +70,7 @@ The Meter can create the following Instrument types:
 
 ![Meter Instrument Types](../../../assets/images/03-01-instrument-types.png)
 
-Here we create a `meter` instance using `metrics` which holds our MeterProvider configuration:
+On line `28` we create a Meter instance in the variable `meter` using `metrics` (our MeterProvider):
 
 ```python
         self.meter = metrics.get_meter("perform-hot")
@@ -107,7 +87,7 @@ Using `meter` we create an instrument of type observable (async) guage on line `
         )
 ```
 
- On line `35` we references a function `create_counter_instrument` which creates our Counter Instrument and passes the name and description as parameters:
+ On line `35` we call the function `create_counter_instrument` to create our Counter instrument:
 
 ```python
         self.create_counter_instrument(
@@ -116,7 +96,7 @@ Using `meter` we create an instrument of type observable (async) guage on line `
         )
 ```
 
-This takes us to line `85` where we add new item to our `metrics` dictonary with the parameters passed for `name` and `description`:
+Taking us to line `85` for the actual creation of the instrument:
 
 ```python
     def create_counter_instrument(self, name: str, description: str):
@@ -129,7 +109,7 @@ This takes us to line `85` where we add new item to our `metrics` dictonary with
 
 ### 📌 Task
 
-**Your Task:** Create a histogram instrument and dictonary reference
+**Your Task:** Create a histogram instrument
 
 **2.1** In the file `pysrvc/otel.py` create a function called `create_histogram_instrument` on line `92` which is used to define our instrument:
 
