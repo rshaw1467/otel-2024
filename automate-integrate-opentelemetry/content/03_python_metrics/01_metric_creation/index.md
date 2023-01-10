@@ -340,7 +340,7 @@ perform.opentelemetry.hot.http.server.duration
 ```
 ---
 
-## Summary
+### Summary
 
 To summarize what we've done:
 - We configured our MeterProvider to use the Dynatrace Metric Exporter
