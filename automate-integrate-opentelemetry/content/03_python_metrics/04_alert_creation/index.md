@@ -9,7 +9,7 @@ Here we look at ad-hock anlysis of metrics connected to our python service and c
 
 ## Davis Exploritory Analysis
 
-#### 🔖 Follow along
+#### 📌 Follow along
 
 Quickly identify observability signals relevant to any signal behavior (for example, a spike on a chart) that you want to investigate. Now that our metrics are connected to the topology they can be included in this anlysis. 
 
