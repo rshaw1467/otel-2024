@@ -6,6 +6,10 @@ In this section we create a dashboard using our OpenTelemetry metrics.
 1. Create a heatmap and pin to a dashboard
 1. Create a single value tile and pin to dashboard
 
+---
+
+## Dashboarding
+
 #### 📌 Follow along
 
 Navigate to the metric brower and search for the text `perform.opentelemetry`. Expand `perform.opentelemetry.hot.requests_count` and click `Create chart` to open the data explorer
