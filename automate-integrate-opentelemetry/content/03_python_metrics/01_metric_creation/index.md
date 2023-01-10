@@ -274,7 +274,7 @@ mvn spring-boot:run
   ```
 </details>
 
-### 📌 Bonus Task: Add metrics in Java
+#### 📌 Bonus Task: Add metrics in Java
 
 <details>
   <summary>Expand should you choose to accept...</summary>
