@@ -25,7 +25,7 @@ Highlight an area in the unified anlysis screen until Anlyze is a teal color. Cl
 
 ## Metric Events (Alerting)
 
-#### 🔖 Follow along
+#### 📌 Follow along
 
 Lets create an Auto Adaptive baseline metric event for the `perform.opentelemetry.hot.process_duration` metric. 
 
