@@ -9,7 +9,7 @@ Here we explore how to connect our metrics to the Dynatrace Topology.
 
 ## Linking metrics to the Dynatrace Topology
 
-#### 📌 Follow along
+#### 🔖 Follow along
 
 #### 1.  Go to `Settings >  Toplogy model > Generic types > Add type definition` and start by completeing the following feilds and click on `Add extraction rule`:
 
@@ -53,7 +53,7 @@ Here we explore how to connect our metrics to the Dynatrace Topology.
 
 ## Unified Analysis Screen
 
-#### 📌 Follow along
+#### 🔖 Follow along
 
 Now that we have our topology we can navigate to the Service screen for our python service to see the result
 
