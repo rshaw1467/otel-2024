@@ -14,7 +14,7 @@ Reference: Dynatrace documentation
 ---
 
 ### 1. Meter Provider Configuration 
-#### 📌 Follow along
+#### 🔖 Follow along
 
 Navigate to the following file:
 
@@ -85,7 +85,7 @@ Finally, we create an empty dictonary on line `26` which will end up holding our
 ```
 ---
 ### 2. Meter & Instrument Creation 
-#### 📌 Follow along
+#### 🔖 Follow along
 The Meter can create the following Instrument types:
 
 ![Meter Instrument Types](../../../assets/images/03-01-instrument-types.png)
@@ -140,18 +140,18 @@ The function will take 4 inputs:
 - `unit`
   - Use `.create_histogram` to create a histogram instrument
 
-💡 **Hint**
-
-Copy the `create_counter_instrument` on line `85` as a starting point and modify it for your histogram instrument:
-
-```python
-    def create_counter_instrument(self, name: str, description: str):
-        self.metrics[name] = self.meter.create_counter(
-            name=name, 
-            description=description, 
-            unit="1"
-        )
-```
+>💡 **Hint**
+>
+>Copy the `create_counter_instrument` on line `85` as a starting point and modify it for your histogram instrument:
+>
+>```python
+>    def create_counter_instrument(self, name: str, description: str):
+>        self.metrics[name] = self.meter.create_counter(
+>            name=name, 
+>            description=description, 
+>            unit="1"
+>        )
+>```
 
 <details>
   <summary>Expand for Solution</summary>
@@ -171,16 +171,16 @@ Copy the `create_counter_instrument` on line `85` as a starting point and modify
 - `"Duration of Fibonacci calculation, in milliseconds"`
 - `"ms"`
 
-💡 **Hint**
-
-Copy the `self.create_counter_instrument` on line `35` as a starting point and modify it for your histogram instrument:
-
-```python
-        self.create_counter_instrument(
-            "requests_count",
-            "Counts the number of requests to the service"
-        )
-```
+>💡 **Hint**
+>
+>Copy the `self.create_counter_instrument` on line `35` as a starting point and modify it for your histogram instrument:
+>
+>```python
+>        self.create_counter_instrument(
+>            "requests_count",
+>            "Counts the number of requests to the service"
+>        )
+>```
 
 <details>
   <summary>Expand for Solution</summary>
@@ -197,7 +197,7 @@ Copy the `self.create_counter_instrument` on line `35` as a starting point and m
 ---
 
 ### 3. Passing measurements to Instruments 
-#### 📌 Follow along
+#### 🔖 Follow along
 Depending on the instrument type there are different functions used for populating measurements:
 
 ![Instrument Function/Callback](../../../assets/images/03-01-function_callback_table.png)
@@ -242,13 +242,14 @@ def calc():
 Open `pysrvc/utils.py` and between line `29-30` add a line to populate your measurment for the histogram passing the variable `duration` as the metric and add an attribute with the key `"number"` and variable `n` as the value. 
 - change the dictionary reference to the name of the new histogram instrument `"process_duration"`
 
-💡 **Hint**
-
-Copy the line `23` in `pysrvc/main.py` as a starting point and modify it for your histogram instrument and remember that `.record` is used to pass a measuremnt to a histomgram instrument type:
-
-```python
-    ot.metrics["requests_count"].add(1, {"request": "/quote"})
-```
+>💡 **Hint**
+>
+>Copy the line `23` in `pysrvc/main.py` as a starting point and modify it for your histogram instrument and remember that `.record` is used to pass a measuremnt to a histomgram instrument type:
+>
+>```python
+>    ot.metrics["requests_count"].add(1, {"request": "/quote"})
+>```
+>
 
 Once completed restart your applicaiton:
 
@@ -327,7 +328,7 @@ Find the metric in the data explorer and check if you're new attribute values ar
 ---
 
 ### 5. Finding the measurments in Dynatrace
-#### 📌 Follow along
+#### 🔖 Follow along
 Navigate in your Dynatrace client to the Metrics Explorer and type in `perform.opentelemetry` to see the metrics populating in Dynatrace:
 
 ![Meter Instrument Types](../../../assets/images/03-02-metric_browser.png)

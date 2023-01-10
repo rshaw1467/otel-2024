@@ -9,7 +9,7 @@ Here we look at ad-hock anlysis of metrics connected to our python service and c
 
 ## Davis Exploritory Analysis
 
-#### 📌 Follow along
+#### 🔖 Follow along
 
 Quickly identify observability signals relevant to any signal behavior (for example, a spike on a chart) that you want to investigate. Now that our metrics are connected to the topology they can be included in this anlysis. 
 
@@ -17,15 +17,15 @@ Highlight an area in the unified anlysis screen until Anlyze is a teal color. Cl
 
 ![Davis Analysis](../../../assets/images/03-04-davis_adhock.gif)
 
-Some things to note:
-- Every data analysis relies on the quality of your data. The quality of the results significantly improves when you select a phenomenon correctly.
-- Causal correlation analysis requires that portions of normal behavior in a reference time series be selected–both before and after any phenomenon under analysis. For a spike analysis, a rule of thumb is that the spike itself should cover a third of the reference time series, with one third before and one third after the spike.
+> 📝 **Note**: 
+>- Every data analysis relies on the quality of your data. The quality of the results significantly improves when you select a phenomenon correctly.
+>- Causal correlation analysis requires that portions of normal behavior in a reference time series be selected–both before and after any phenomenon under analysis. For a spike analysis, a rule of thumb is that the spike itself should cover a third of the reference time series, with one third before and one third after the spike.
 
 ---
 
 ## Metric Events (Alerting)
 
-#### 📌 Follow along
+#### 🔖 Follow along
 
 Lets create an Auto Adaptive baseline metric event for the `perform.opentelemetry.hot.process_duration` metric. 
 
