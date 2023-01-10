@@ -14,7 +14,7 @@ Reference: Dynatrace documentation
 ---
 
 ### 1. Meter Provider Configuration 
-#### 🔖 Follow along
+#### 👂 Listen & follow in code
 
 Navigate to the following file:
 
@@ -65,7 +65,7 @@ Finally, we create an empty dictonary on line `26` which will end up holding our
 ```
 ---
 ### 2. Meter & Instrument Creation 
-#### 🔖 Follow along
+#### 👂 Listen & follow in code
 The Meter can create the following Instrument types:
 
 ![Meter Instrument Types](../../../assets/images/03-01-instrument-types.png)
@@ -115,9 +115,9 @@ Taking us to line `85` for the actual creation of the instrument:
 
 The function will take 4 inputs:
 - `self`
-- `name`
-- `description`
-- `unit`
+- `name: str`
+- `description: str`
+- `unit: str`
   - Use `.create_histogram` to create a histogram instrument
 
 >💡 **Hint**
@@ -177,7 +177,7 @@ The function will take 4 inputs:
 ---
 
 ### 3. Passing measurements to Instruments 
-#### 🔖 Follow along
+#### 👂 Listen & follow in code
 Depending on the instrument type there are different functions used for populating measurements:
 
 ![Instrument Function/Callback](../../../assets/images/03-01-function_callback_table.png)
@@ -231,13 +231,6 @@ Open `pysrvc/utils.py` and between line `29-30` add a line to populate your meas
 >```
 >
 
-Once completed restart your applicaiton:
-
-```
-Ctrl+C
-mvn spring-boot:run
-```
-
 <details>
   <summary>Expand for Solution</summary>
   
@@ -246,6 +239,13 @@ mvn spring-boot:run
   ```
 </details>
 
+Once completed restart your applicaiton:
+
+```
+Ctrl+C
+mvn spring-boot:run
+```
+
 <details>
   <summary>My webserver won't start</summary>
   
@@ -253,62 +253,17 @@ mvn spring-boot:run
   ```
   $ sudo kill -9 `sudo lsof -t -i:8080`
   ```
-</details>
-
-#### 📌 Bonus Task: Add metrics in Java
-
-<details>
-  <summary>Expand should you choose to accept...</summary>
-Open:
-
-```
-shopizer/sm-shop/src/main/java/com/salesmanager/shop/store/controller/product/ShopProductController.java
-```
-
-On line `113` we populate a measurment in our `referenceCounter` instrument. 
-
-Your task is to populate a metric in the same `referenceCounter` instrument in both the `handleQuote` and  `calcPrice` functions
-- pass `qoute` and `calc` respectivley as the `reference` attribute value
-
-Restart your applciaiton:
-
-```
-Ctrl+C​
-mvn spring-boot:run
-```
-
-Find the metric in the data explorer and check if you're new attribute values are showing up like so:
-
-![Meter Instrument Types](../../../assets/images/03-01-java_metric_solution.png)
-
-<details>
-  <summary>Expand for solution</summary>
-  
-  ```java
-    public void handleQuote(final String reference) {
-		HttpUtil.Get("http://127.0.0.1:8090/quote");
-		this.metrics.referenceCounter().add(1, Attributes.of(stringKey("reference"), "qoute"));						
-	}
-
-	public void calcPrice(Model model) {
-		Span span = getTracer().spanBuilder("calc")
-		.setAttribute("model", model.toString())
-		.startSpan();
-		this.metrics.referenceCounter().add(1, Attributes.of(stringKey("reference"), "calc"));
-		try (Scope scope = span.makeCurrent()) {
-			HttpUtil.Get("http://127.0.0.1:8090/calc");						
-		} finally {
-			span.end();
-		}
-	}
+  Then attempt to start the app again:
   ```
-</details>
+  mvn spring-boot:run
+  ```
 </details>
 
 ---
 
 ### 5. Finding the measurments in Dynatrace
-#### 🔖 Follow along
+#### 👂 Listen & follow in Dynatrace
+
 Navigate in your Dynatrace client to the Metrics Explorer and type in `perform.opentelemetry` to see the metrics populating in Dynatrace:
 
 ![Meter Instrument Types](../../../assets/images/03-02-metric_browser.png)

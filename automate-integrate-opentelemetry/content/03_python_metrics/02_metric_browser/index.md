@@ -10,7 +10,7 @@ In this section we create a dashboard using our OpenTelemetry metrics.
 
 ## Dashboarding
 
-#### 🔖 Follow along
+#### 📌 Follow along
 
 Navigate to the metric brower and search for the text `perform.opentelemetry`. Expand `perform.opentelemetry.hot.requests_count` and click `Create chart` to open the data explorer
 
