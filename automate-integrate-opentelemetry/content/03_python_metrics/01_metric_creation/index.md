@@ -131,7 +131,7 @@ This takes us to line `85` where we add new item to our `metrics` dictonary with
 
 **Your Task:** Create a histogram instrument and dictonary reference
 
-**2.1** In the file `pysrvc/otel.py` create a function called `create_histogram_instrument` on line `92` (similar to the `create_counter_instrument` line `85`) used to define our instrument:
+**2.1** In the file `pysrvc/otel.py` create a function called `create_histogram_instrument` on line `92` which is used to define our instrument:
 
 The function will take 4 inputs:
 - `self`
@@ -166,7 +166,7 @@ Copy the `create_counter_instrument` on line `85` as a starting point and modify
   ```
 </details>
 
-**2.2** Create a call to the `create_histogram_instrument` function on line `39` (will be bery similar to `self.create_counter_instrument` on line `35`) passing the following parameters:
+**2.2** Create a call to the `create_histogram_instrument` function on line `39` passing the following parameters:
 - `"process_duration"`
 - `"Duration of Fibonacci calculation, in milliseconds"`
 - `"ms"`
@@ -239,13 +239,12 @@ def calc():
 
 **Your Task:** Send a measurment to your histogram instrument
 
-Open `pysrvc/utils.py` and between line `29-30` add a line to populate your measurment for the histogram (similar to line `23` in `pysrvc/main.py`) passing the variable `duration` as the metric and add an attribute with the key `"number"` and variable `n` as the value. 
-- Reference the table in the `Passing Measurments...` section to find the correct function/callback to populate a metric for a Histogram
+Open `pysrvc/utils.py` and between line `29-30` add a line to populate your measurment for the histogram passing the variable `duration` as the metric and add an attribute with the key `"number"` and variable `n` as the value. 
 - change the dictionary reference to the name of the new histogram instrument `"process_duration"`
 
 💡 **Hint**
 
-Copy the line `23` as a starting point and modify it for your histogram instrument:
+Copy the line `23` in `pysrvc/main.py` as a starting point and modify it for your histogram instrument and remember that `.record` is used to pass a measuremnt to a histomgram instrument type:
 
 ```python
     ot.metrics["requests_count"].add(1, {"request": "/quote"})
