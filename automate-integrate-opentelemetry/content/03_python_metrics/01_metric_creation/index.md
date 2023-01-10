@@ -1,4 +1,4 @@
-## Creating python metrics
+## OpenTelemetry metrics definition in Python
 
 In this section we go through OpenTelemetry Metric setup and create a new metric. 
 
