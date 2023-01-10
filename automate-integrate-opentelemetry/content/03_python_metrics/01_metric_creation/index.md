@@ -338,8 +338,9 @@ You might have also noticed that there are two addtional metrics showing up as w
 perform.opentelemetry.hot.http.server.active_requests
 perform.opentelemetry.hot.http.server.duration
 ```
+---
 
-# Summary
+## Summary
 
 To summarize what we've done:
 - We configured our MeterProvider to use the Dynatrace Metric Exporter
