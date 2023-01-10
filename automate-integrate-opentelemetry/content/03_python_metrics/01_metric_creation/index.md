@@ -1,8 +1,6 @@
 ## Creating python metrics
 
-In addition to traces, Open Telemetry allows for metrics collection
-
-Goal: collect a synchronous response time metric
+In this section we go through OpenTelemetry Metric setup and create a new metric. 
 
 Reference: Dynatrace documentation
 - [OpenTelemetry metric concepts](https://www.dynatrace.com/support/help/shortlink/opentelemetry-metric-concepts)
@@ -13,7 +11,10 @@ Reference: Dynatrace documentation
 1. Recording a measurement (sync & async)
 1. Finding your metric in Dynatrace
 
+---
+
 ### 1. Meter Provider Configuration 
+#### 📌 Follow along
 
 Navigate to the following file:
 
@@ -84,7 +85,7 @@ Finally, we create an empty dictonary on line `26` which will end up holding our
 ```
 ---
 ### 2. Meter & Instrument Creation 
-
+#### 📌 Follow along
 The Meter can create the following Instrument types:
 
 ![Meter Instrument Types](../../../assets/images/03-01-instrument-types.png)
@@ -195,8 +196,8 @@ Copy the `self.create_counter_instrument` on line `35` as a starting point and m
 
 ---
 
-### 4. Passing measurements to Instruments 
-
+### 3. Passing measurements to Instruments 
+#### 📌 Follow along
 Depending on the instrument type there are different functions used for populating measurements:
 
 ![Instrument Function/Callback](../../../assets/images/03-01-function_callback_table.png)
@@ -233,7 +234,6 @@ def calc():
     process(random.randint(0, 25))
     return make_response({}, 200)
 ```
---- 
 
 ### 📌 Task
 
@@ -274,8 +274,6 @@ mvn spring-boot:run
   $ sudo kill -9 `sudo lsof -t -i:8080`
   ```
 </details>
-
----
 
 ### 📌 Bonus Task: Add metrics in Java
 
@@ -330,7 +328,7 @@ Find the metric in the data explorer and check if you're new attribute values ar
 ---
 
 ### 5. Finding the measurments in Dynatrace
-
+#### 📌 Follow along
 Navigate in your Dynatrace client to the Metrics Explorer and type in `perform.opentelemetry` to see the metrics populating in Dynatrace:
 
 ![Meter Instrument Types](../../../assets/images/03-02-metric_browser.png)

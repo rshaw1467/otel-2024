@@ -1,14 +1,15 @@
 ## Creating alerts in Dynatrace
 
-Task: alerting (auto-adaptive / seasonal baseline)
+Here we look at ad-hock anlysis of metrics connected to our python service and creating alerts on our metrics. 
 
-Observe: measurements on demand
+1. Trigger Davis Exploritory Analysis
+1. Create alerts using auto-adaptive and seasonal baselines 
 
-Understand: dynatrace dimensions & metrics
+---
 
 ## Davis Exploritory Analysis
 
-### 📌 Follow along
+#### 📌 Follow along
 
 Quickly identify observability signals relevant to any signal behavior (for example, a spike on a chart) that you want to investigate. Now that our metrics are connected to the topology they can be included in this anlysis. 
 
@@ -24,7 +25,7 @@ Some things to note:
 
 ## Metric Events (Alerting)
 
-### 📌 Follow along
+#### 📌 Follow along
 
 Lets create an Auto Adaptive baseline metric event for the `perform.opentelemetry.hot.process_duration` metric. 
 

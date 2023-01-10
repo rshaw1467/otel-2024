@@ -1,12 +1,15 @@
-## Metrics - leverage Unified Analysis Screens
+## Connecting metrics to Topology
 
-Task: create topology rule
+Here we explore how to connect our metrics to the Dynatrace Topology. 
 
-Observe: all metrics in the new screen
+1. Create a rule to expand the Dyantrace topology
+1. Find metrics in the Unified Analysis Screen of our python service
 
-Understand: Service, Trace, Metrics in context of topology
+---
 
-### Linking metrics to the Dynatrace Topology
+## Linking metrics to the Dynatrace Topology
+
+#### 📌 Follow along
 
 #### 1.  Go to `Settings >  Toplogy model > Generic types > Add type definition` and start by completeing the following feilds and click on `Add extraction rule`:
 
@@ -46,7 +49,11 @@ Understand: Service, Trace, Metrics in context of topology
 
    ![Topology 4](../../../assets/images/03-03-topology_4.png)
 
-### Unified Alysis Screen
+---
+
+## Unified Analysis Screen
+
+#### 📌 Follow along
 
 Now that we have our topology we can navigate to the Service screen for our python service to see the result
 
