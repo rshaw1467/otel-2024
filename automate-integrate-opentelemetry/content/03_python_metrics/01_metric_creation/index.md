@@ -13,255 +13,170 @@ Reference: Dynatrace documentation
 
 ---
 
-### 1. Meter Provider Configuration 
+### 1. Meter & Instrument Definition
 #### 👂 Listen & follow in code
 
 Navigate to the following file:
 
 ```
-pysrvc/otel.py
+src/main/resources/jvm.envionrment.properties
 ```
 
-We will be using the variable `ot` again which holds the configuration for our OpenTelemetry Metrics setup:
+OpenTelemetry AutoInstrumentor metrics configuration (sending to otel collector so no authenticaiton to Dynatrace is needed):
 
-```python
-ot = CustomOpenTelemetry()
+```java
+FRONTEND.OTEL_METRICS_EXPORTER=otlp
+FRONTEND.OTEL_EXPORTER_OTLP_METRICS_PROTOCOL=http/protobuf
+FRONTEND.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://localhost:4318/v1/metrics
+# FRONTEND.OTEL_EXPORTER_OTLP_METRICS_HEADERS=Authorization=Api-Token <token>
+FRONTEND.OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=DELTA
 ```
 
-In the `setup_exporters(self)` our configuration starts on line `74` setting up our MeterProvider with `configure_dynatrace_metrics_export`. 
+Navigate to the following file:
 
-```python
-        # Set up metrics export
-        metrics.set_meter_provider(MeterProvider(
-            metric_readers=[
-                configure_dynatrace_metrics_export(
-                    export_dynatrace_metadata=True,
-                    prefix="perform.opentelemetry.hot",
-                    default_dimensions=self.resource_props
-                )
-            ]
-        ))
+```
+src/main/shop/FrontendServer.java
 ```
 
-In cases where we do not have a OneAgent on the local host we can define the endpoint (ActiveGate or Cluser) and API token like so:
+We start by importing our otel libraries:
 
-```python
-        # Set up metrics export to remote endpoint
-        metrics.set_meter_provider(MeterProvider(
-            metric_readers=[
-                configure_dynatrace_metrics_export(
-                    export_dynatrace_metadata=True,
-                    prefix="perform.opentelemetry.hot",
-                    default_dimensions=self.resource_props
-                    endpoint_url=endpoint_url,
-                    api_token=api_token)
-            ]))
+```java
+import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.api.common.AttributeKey;
+import io.opentelemetry.api.common.Attributes;
+import io.opentelemetry.api.metrics.LongCounter;
+import io.opentelemetry.api.metrics.Meter;
 ```
 
-Finally, we create an empty dictonary on line `26` which will end up holding our instruments that will be referenced through `ot` to populate measurements:
+Instantiate our opentelemetry configuration in the object `openTelemetry`:
 
-```python
-    self.metrics = {}
+```java
+private static final OpenTelemetry openTelemetry = GlobalOpenTelemetry.get();
 ```
+
+Use `openTelemetry` to create our Meter object `meter`:
+
+```java
+private static final Meter meter = openTelemetry.meterBuilder("manual-instrumentation").setInstrumentationVersion("1.0.0").build();
+```
+
+Use `meter` to create our Instruments:
+
+```java
+private static final LongCounter confirmedPurchasesCounter = meter.counterBuilder("shop.purchases.confirmed").setDescription("Number of confirmed purchases").build();
+```
+```java
+private static final LongCounter expectedRevenueCounter = meter.counterBuilder("shop.revenue.expected").setDescription("Expected revenue in dollar").build();
+```
+```java
+private static final LongCounter actualRevenueCounter = meter.counterBuilder("shop.revenue.actual").setDescription("Actual revenue in dollar").build();
+```
+
+Comment out ActualRevenue for the people to uncomment.
+
+We can use Expected revenue to count the attempted purchases as well. Bonus, create an ExpectedPurchases counter to count this with an otel metric. 
+
+### 📌 Task: Create an additional instrument
+
+**Your Task:** Create an addtional LongCounter to track attempted Purchases
+
+**1.1** In the file `src/main/shop/FrontendServer.java` on line 37 create a new LongCounter object called `expectedPurchaseCounter` (similar to line 34,35,36) with the following properties:
+- name:`"shop.purhcases.expected"`
+- description:`"Number of expected purchases"`
+
+<details>
+  <summary>Expand to copy and paste the code</summary>
+
+  ```java
+private static final LongCounter attemptedPurchases = meter.counterBuilder("shop.purhcases.attempted").setDescription("Number of attempted purchases").build();
+  ```
+</details>
+
 ---
-### 2. Meter & Instrument Creation 
+
+### 2. Passing Measurments 
 #### 👂 Listen & follow in code
-The Meter can create the following Instrument types:
 
-![Meter Instrument Types](../../../assets/images/03-01-instrument-types.png)
+We can see how metrics are populated on line 75:
 
-On line `28` we create a Meter instance in the variable `meter` using `metrics` (our MeterProvider):
-
-```python
-        self.meter = metrics.get_meter("perform-hot")
+```java
+private static void reportPurchases(Product product) {
+    Attributes attributes = Attributes.of(AttributeKey.stringKey("product"), product.getName());
+    confirmedPurchasesCounter.add(1, attributes);
+}
+```
+```java
+private static void reportExpectedRevenue(Product product) {
+    Attributes attributes = Attributes.of(AttributeKey.stringKey("product"), product.getName());
+    expectedRevenueCounter.add(product.getPrice(), attributes);
+}	
+```
+```java
+private static void reportActualRevenue(Product product) {
+    Attributes attributes = Attributes.of(AttributeKey.stringKey("product"), product.getName());
+    actualRevenueCounter.add(product.getPrice(), attributes);
+}
 ```
 
-Using `meter` we create an instrument of type observable (async) guage on line `29`:
+As our code is running, these functions are called to pass our measurments - like in line 53, 69, and 70:
 
-```python
-        self.meter.create_observable_gauge(
-            callbacks=[get_cpu_usage],
-            name="cpu_usage",
-            description="CPU Usage per processor, as percentage",
-            unit="1"
-        )
+```diff
+public static String handlePlaceOrder(HttpExchange exchange) throws Exception {
+		// log.info("Frontend received request: " + exchange.getRequestURI().toString());
+		Product product = Product.random();
+		String productID = product.getID();
++		reportExpectedRevenue(product);
+		try (Connection con = Database.getConnection(10, TimeUnit.SECONDS)) {...
 ```
+```diff
+public static String handlePurchaseConfirmed(HttpExchange exchange) throws Exception {
+	String requestURI = exchange.getRequestURI().toString();
+	String productID = requestURI.substring(requestURI.lastIndexOf("/") + 1);
+	Product product = Product.getByID(productID);
 
- On line `35` we call the function `create_counter_instrument` to create our Counter instrument:
++	reportPurchases(product);
++	reportActualRevenue(product);
 
-```python
-        self.create_counter_instrument(
-            "requests_count",
-            "Counts the number of requests to the service"
-        )
+	return "confirmed";
+}
 ```
+### 📌 Task: Pass a measurment 
 
-Taking us to line `85` for the actual creation of the instrument:
+**Your Task:** Call the newly created function in the code to pass a measurment
 
-```python
-    def create_counter_instrument(self, name: str, description: str):
-        self.metrics[name] = self.meter.create_counter(
-            name=name, 
-            description=description, 
-            unit="1"
-        )
-```
+**2.1** In the file `src/main/shop/FrontendServer.java` after line 89 create a new function called `reportExpectedPurchases`, taking `product` as a parameter, and adding 1 to our expectedPurchases `instrument`.
 
-### 📌 Task
-
-**Your Task:** Create a histogram instrument
-
-**2.1** In the file `pysrvc/otel.py` create a function called `create_histogram_instrument` on line `92` which is used to define our instrument:
-
-The function will take 4 inputs:
-- `self`
-- `name: str`
-- `description: str`
-- `unit: str`
-  - Use `.create_histogram` to create a histogram instrument
-
->💡 **Hint**
->
->Copy the `create_counter_instrument` on line `85` as a starting point and modify it for your histogram instrument:
->
->```python
->    def create_counter_instrument(self, name: str, description: str):
->        self.metrics[name] = self.meter.create_counter(
->            name=name, 
->            description=description, 
->            unit="1"
->        )
->```
+Hint: this will be almost exactly the same as the `reportPurchases` function starting on line 76. 
 
 <details>
-  <summary>Expand for Solution</summary>
-  
-  ```python
-  def create_histogram_instrument(self, name: str, description: str, unit: str):
-    self.metrics[name] = self.meter.create_histogram(
-    name=name,
-    description=description,
-    unit=unit
-  )
+  <summary>Expand to copy and paste the code</summary>
+
+  ```java
+	private static void reportExpectedPurchases(Product product) {
+        Attributes attributes = Attributes.of(AttributeKey.stringKey("product"), product.getName());
+        expectedPurchasesCounter.add(1, attributes);
+	}
   ```
 </details>
 
-**2.2** Create a call to the `create_histogram_instrument` function on line `39` passing the following parameters:
-- `"process_duration"`
-- `"Duration of Fibonacci calculation, in milliseconds"`
-- `"ms"`
+**2.2** Between line 54 and 55 call the `reportExpectedPurchases` function passing `product` as an argument. 
 
->💡 **Hint**
->
->Copy the `self.create_counter_instrument` on line `35` as a starting point and modify it for your histogram instrument:
->
->```python
->        self.create_counter_instrument(
->            "requests_count",
->            "Counts the number of requests to the service"
->        )
->```
+Hint: this will be almost exactly the same as the call to `reportExpectedRevenue` on line 54. 
 
 <details>
-  <summary>Expand for Solution</summary>
-  
-  ```python
-        self.create_histogram_instrument(
-            "process_duration",
-            "Duration of Fibonacci calculation, in milliseconds",
-            "ms"
-        )
+  <summary>Expand to copy and paste the code</summary>
+
+  ```java
+		reportExpectedPurchases(product);
   ```
 </details>
 
----
+Then restart your applicaiton:
 
-### 3. Passing measurements to Instruments 
-#### 👂 Listen & follow in code
-Depending on the instrument type there are different functions used for populating measurements:
+<gif of restarting application >
 
-![Instrument Function/Callback](../../../assets/images/03-01-function_callback_table.png)
-
-On line `15` we can see our callback function for our observable (async) gauge `cpu_usage`:
-
-```python
-        def get_cpu_usage(_: CallbackOptions):
-            for (number, percent) in enumerate(psutil.cpu_percent(percpu=True)):
-                attributes = {"cpu_number": str(number)}
-                yield Observation(percent, attributes)
-```
-
-To see how our Counter is populated navigate too:
-
-```
-pysrvc/main.py
-```
-On line `21` in the `quote` function we use `ot` to pass a measurement to the `request_count` counter instrument:
-
-```python
-def quote():
-    with ot.tracer.start_as_current_span("quote") as span:
-        ot.metrics["requests_count"].add(1, {"request": "/quote"})
-        process(random.randint(0, 25))
-        return make_response({}, 200)
-```
-
-And we pass another measurmenet in `calc` function on line `29` but with a different attribute value:
-
-```python
-def calc():
-    ot.metrics["requests_count"].add(1, {"request": "/calc"})
-    process(random.randint(0, 25))
-    return make_response({}, 200)
-```
-
-### 📌 Task
-
-**Your Task:** Send a measurment to your histogram instrument
-
-Open `pysrvc/utils.py` and between line `29-30` add a line to populate your measurment for the histogram passing the variable `duration` as the metric and add an attribute with the key `"number"` and variable `n` as the value. 
-- change the dictionary reference to the name of the new histogram instrument `"process_duration"`
-
->💡 **Hint**
->
->Copy the line `23` in `pysrvc/main.py` as a starting point and modify it for your histogram instrument and remember that `.record` is used to pass a measuremnt to a histomgram instrument type:
->
->```python
->    ot.metrics["requests_count"].add(1, {"request": "/quote"})
->```
->
-
-<details>
-  <summary>Expand for Solution</summary>
-  
-  ```python
-  ot.metrics["process_duration"].record(duration, {"number": n})
-  ```
-</details>
-
-Once completed restart your applicaiton:
-
-```
-Ctrl+C
-mvn spring-boot:run
-```
-
-<details>
-  <summary>My webserver won't start</summary>
-  
-  Run the following to kill any remaining processes on port 8080:
-  ```
-  $ sudo kill -9 `sudo lsof -t -i:8080`
-  ```
-  Then attempt to start the app again:
-  ```
-  mvn spring-boot:run
-  ```
-</details>
-
----
-
-### 5. Finding the measurments in Dynatrace
+### 3. Finding the measurments in Dynatrace
 #### 👂 Listen & follow in Dynatrace
 
 Navigate in your Dynatrace client to the Metrics Explorer and type in `perform.opentelemetry` to see the metrics populating in Dynatrace:
