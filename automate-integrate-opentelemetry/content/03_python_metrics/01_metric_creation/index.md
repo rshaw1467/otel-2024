@@ -176,28 +176,23 @@ Then restart your applicaiton:
 
 <gif of restarting application >
 
-### 3. Finding the measurments in Dynatrace
-#### 👂 Listen & follow in Dynatrace
+**2.3** As part of the OpenTelemetrey auto-isntrumentation some metrics are provided out of the box depending on the libraries and technologies being used.
 
-Navigate in your Dynatrace client to the Metrics Explorer and type in `perform.opentelemetry` to see the metrics populating in Dynatrace:
+Naviate to the Metric Explorer and search for `process.runtime` to see the metrics that are provided out of the box. 
 
-![Meter Instrument Types](../../../assets/images/03-02-metric_browser.png)
+Next search `shop` to see the custom metrics that were pre-populated and the newly created metric opentelemetry metric.
 
-You might have also noticed that there are two addtional metrics showing up as well; these are created automatically by the Flask automatic instrumentation: 
+Depending on the libraries being use there may be some metrics provided out of the box. 
 
-```
-perform.opentelemetry.hot.http.server.active_requests
-perform.opentelemetry.hot.http.server.duration
-```
 ---
 
 ### Summary
 
 To summarize what we've done:
-- We configured our MeterProvider to use the Dynatrace Metric Exporter
+- We intialized OpenTelemetry which created our MeterProvider as part of the GlobalOpentelmetry object
 - We created a Meter instance and used that to create our Insturments
-- We created a Histogram instrument tyep
-- We populated measurments in our Instruments using `ot` in our applicaiton code
+- We passed a metric to our instrument as part of our business logic
+- We could see that out of the box, depending on libraries used, metrics will also be created with automatic instrumentation 
 
 ```java
 +------------------+
