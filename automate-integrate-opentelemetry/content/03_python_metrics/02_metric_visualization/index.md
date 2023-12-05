@@ -1,10 +1,6 @@
-## Metric Browser & Davis Analysis
+## Metric Visualization & Analysis
 
-In this section we create a dashboard using our OpenTelemetry metrics. 
-
-1. Explore metrics in Dynatrace
-1. Create a heatmap and pin to a dashboard
-1. Create a single value tile and pin to dashboard
+In this section we create a dashboard using the business level OpenTelemetry metrics available and created in the first section. 
 
 ---
 
@@ -42,7 +38,7 @@ Let's create a heatmap with the following settings:
 
 ### 📌 Task
 
-**Your Task:** Add a Single Value tile to the new dashboard
+**Your Task:** Create a dashboard which would be useful for the business and for problem investigation
 
 1. Select the `perform.opentelemetry.hot.http.server.duration` metric
 1. Choose `Single value` as the chart type
