@@ -10,19 +10,33 @@ Now that we have our metrics in Dynatrace we need to create a business & observa
 
 Open `Daily Sales - Business Dashbaord` from Dashboards and clone it, we'll modify this to fit your specific metrics.
 
-#### 📌 2 - Modify the Business tiles
+Rename the Cloned dashboard to include your name in it. 
+
+#### 📌 2 - Modify the Business tiles [1 or more]
 
 Modify the business tiles so that they use your specific metrics. 
 
-<to-do>
+For `Total Sales Revenue`:
+1. Click the tile
+1. Click `Configure in Data Explorer`
+1. Paste your metric `shop.<NAME>.revenue.actual.count`
+1. Click `Run Query`
+1. Click `Save Changes to Dashboard`
 
-#### 📌 3 - Modify the Observability tiles
+Repeate these steps for the other tiles (not expected to finsih this task)
 
-Modify the observability tiles so that they use your specific metrics. 
+#### 📌 3 - Modify the Observability tiles [1 or more]
 
-<to-do>
+Modify the business tiles so that they use your specific metrics. 
 
-#### 📌 4 - Add a tile to display the response time of the top 5 endpoints in the backend service
+For `Response Time`:
+1. Click the tile
+1. Click `Configure in Data Explorer`
+1. Change the Filter to your service `Service` > `Name` > `<NAME>-backend-api`
+1. Click `Run Query`
+1. Click `Save Changes to Dashboard`
+
+#### 📌 4 - Add a tile to display the response time of the top 10 endpoints in the backend-api service
 
 1. Drag a Top List tile into the dashboard.
 1. Click the tile and select `Configure tile in Data Explorer`
