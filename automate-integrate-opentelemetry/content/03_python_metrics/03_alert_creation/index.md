@@ -2,28 +2,6 @@
 
 Here we look at ad-hock anlysis of metrics connected to our python service and creating alerts on our metrics. 
 
-1. Trigger Davis Exploritory Analysis
-1. Create alerts using auto-adaptive and seasonal baselines 
-
----
-
-## Davis Exploritory Analysis
-
-#### 📌 Task
-
-Quickly identify observability signals relevant to any signal behavior (for example, a spike on a chart) that you want to investigate. 
-
-1. Navigate into your `order-api` service
-1. Highlight the `Failure Rate` timeseries in the unified anlysis screen until the  `analyze` drop down is clickable then select `Failure rate`.
-
-This triggers the Davis causal correlation anlysis to quickly find and explore time series with similar behavior to the one you're investigating.
-
-![Davis Analysis](../../../assets/images/03-04-davis_adhock.gif)
-
-> 📝 **Best Practice Tips**: 
->- Every data analysis relies on the quality of your data. The quality of the results significantly improves when you select a phenomenon correctly.
->- Causal correlation analysis requires that portions of normal behavior in a reference time series be selected–both before and after any phenomenon under analysis. For a spike analysis, a rule of thumb is that the spike itself should cover a third of the reference time series, with one third before and one third after the spike.
-
 ---
 
 ## Metric Events (Alerting)

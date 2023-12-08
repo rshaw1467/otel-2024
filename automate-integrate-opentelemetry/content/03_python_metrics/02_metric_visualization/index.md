@@ -2,6 +2,9 @@
 
 In this section we create a dashboard using the business level OpenTelemetry metrics available and created in the first section. 
 
+Reference: Dynatrace documentation
+- [Java: Supported libraries, frameworks, application servers, and JVMs](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/supported-libraries.md#supported-libraries-frameworks-application-servers-and-jvms)
+
 ---
 
 ## Dashboarding
