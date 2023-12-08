@@ -60,6 +60,8 @@ Hint: this will be almost exactly the same as the call to `reportExpectedRevenue
 
 Then restart your applicaiton:
 
+![Settings](../../../assets/images/03-01-restart_app.gif)
+
 <gif of restarting application >
 
 **2.3** Open the Data Explorer and search metrics by the name you've set as your ENVIRONMENT variable in the begining of the Hot Session. Be aware it may take a couple minutes for your new metric to appear.
@@ -70,7 +72,7 @@ As part of the OpenTelemetrey auto-isntrumentation some metrics are provided out
 
 [Java: Supported libraries, frameworks, application servers, and JVMs](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/supported-libraries.md#supported-libraries-frameworks-application-servers-and-jvms)
 
-Naviate to the Metric Explorer and search for `process.runtime` to see the metrics that are provided out of the box in our usecase. 
+To see the metrics that are provided out of the box in our usecase naviate to the Metric Explorer and search for `process.runtime`. 
 
 ![Settings](../../../assets/images/03-01-metric_process_runtime.png)
 
