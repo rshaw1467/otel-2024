@@ -6,6 +6,7 @@ Reference: Dynatrace documentation
 - [Dynatrace OpenTelemetry Metrics](https://docs.dynatrace.com/docs/shortlink/otel-overview-metrics)
 - [Dynatrace OpenTelemetry instrument code samples](https://docs.dynatrace.com/docs/shortlink/opentelemetry-instrument-examples)
 - [Dynatrace OpenTelemetry Metrics Limitations](https://docs.dynatrace.com/docs/shortlink/opentelemetry-metrics-limitations)
+- [Java: Supported libraries, frameworks, application servers, and JVMs](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/supported-libraries.md#supported-libraries-frameworks-application-servers-and-jvms)
 
 ---
 
