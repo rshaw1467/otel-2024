@@ -2,8 +2,6 @@
 
 Now that we have our metrics in Dynatrace we need to create a business & observability dashboard. 
 
-![Settings](../../../assets/images/03-02-dashboard_wireframe.png)
-
 ---
 
 ## Dashboarding
@@ -23,3 +21,14 @@ Modify the business tiles so that they use your specific metrics.
 Modify the observability tiles so that they use your specific metrics. 
 
 <to-do>
+
+#### 📌 4 - Add a tile to display the response time of the top 5 endpoints in the backend service
+
+1. Drag a Top List tile into the dashboard.
+1. Click the tile and select `Configure tile in Data Explorer`
+2. Select the `Unified service request response time (by service, endpoint)`
+1. Split by `Endpoint`
+1. Click `+` and select `Limit` and select the value of `10`
+1. Click `↻ Run Query`
+1. Save changes to dashboard
+1. Rename the tile to `Endpoint Response Time`
