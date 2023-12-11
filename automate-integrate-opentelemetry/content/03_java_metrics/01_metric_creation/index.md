@@ -86,7 +86,7 @@ Then restart your applicaiton:
 
 Open the Data Explorer and search metrics by the name you've set as your ENVIRONMENT variable in the begining of the Hot Session. Be aware it may take a couple minutes for your new metric to appear.
 
-![Settings](../../../assets/images/03-01-metrics.png)
+![Settings](../../../assets/images/03-01-Metrics.png)
 
 As part of the OpenTelemetrey auto-isntrumentation some metrics are provided out of the box depending on the libraries and technologies being used. To find out if the framework you plan to use has metrics included in auto-insturmentation look at the github here:
 
