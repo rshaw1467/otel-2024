@@ -8,13 +8,12 @@ Reference: Dynatrace documentation
 - [Dynatrace OpenTelemetry Metrics Limitations](https://docs.dynatrace.com/docs/shortlink/opentelemetry-metrics-limitations)
 - [Java: Supported libraries, frameworks, application servers, and JVMs](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/supported-libraries.md#supported-libraries-frameworks-application-servers-and-jvms)
 
----
 
 ### 📌 Task #1: Create an additional instrument
 
 **Your Task:** Create an addtional LongCounter to track attempted Purchases
 
-**1.1** In the file `src/main/shop/FrontendServer.java` on line 38 create a new LongCounter object called `expectedPurchaseCounter` (similar to line 34,35,36) with the following properties:
+In the file `src/main/shop/FrontendServer.java` on line 47 create a new LongCounter object called `expectedPurchaseCounter` (similar to line 43,44,45) with the following properties:
 - name:`"shop.purhcases.expected"`
 - description:`"Number of expected purchases"`
 
@@ -26,13 +25,11 @@ private static final LongCounter attemptedPurchasesCounter = meter.counterBuilde
   ```
 </details>
 
----
+### 📌 Task #2: Function to pass a measurement 
 
-### 📌 Task #2: Pass a measurment 
+**Your Task:** Create a function that will pass a measurement to your instrument 
 
-**Your Task:** Call the newly created function in the code to pass a measurment
-
-**2.1** In the file `src/main/shop/FrontendServer.java` after line 89 create a new function called `reportExpectedPurchases`, taking `product` as a parameter, and adding 1 to our expectedPurchases `instrument`.
+In the file `src/main/shop/FrontendServer.java` after line 153 create a new function called `reportAttemptedPurchases`, taking `product` as a parameter, and adding 1 to our expectedPurchases `instrument`.
 
 Hint: this will be almost exactly the same as the `reportPurchases` function starting on line 76. 
 
@@ -47,15 +44,35 @@ Hint: this will be almost exactly the same as the `reportPurchases` function sta
   ```
 </details>
 
-**2.2** Between line 54 and 55 call the `reportExpectedPurchases` function passing `product` as an argument. 
 
-Hint: this will be almost exactly the same as the call to `reportExpectedRevenue` on line 54. 
+### 📌 Task #3: Passing a measurment 
+
+Between line 64 and 65 call the `reportAttemptedPurchases` function passing `product` as an argument. 
+
+Hint: this will be almost exactly the same as the call to `reportExpectedRevenue` on line 64. 
 
 <details>
   <summary>Expand to copy and paste the code</summary>
 
-  ```java
-		reportAttemptedPurchases(product);
+```java
+reportAttemptedPurchases(product);
+```
+Seen inline:
+  ```diff
+	public static String handlePlaceOrder(HttpExchange exchange) throws Exception {
+		// log.info("Frontend received request: " + exchange.getRequestURI().toString());
+		Product product = Product.random();
+		String productID = product.getID();
+		reportExpectedRevenue(product);
++	reportAttemptedPurchases(product);
+		try (Connection con = Database.getConnection(10, TimeUnit.SECONDS)) {
+			try (Statement stmt = con.createStatement()) {
+				stmt.executeUpdate("INSERT INTO orders VALUES (" + productID + ")");
+			}
+		}
+		validateCreditCard(product);
+		return checkInventory(product);
+	}
   ```
 </details>
 
@@ -65,7 +82,9 @@ Then restart your applicaiton:
 
 <gif of restarting application >
 
-**2.3** Open the Data Explorer and search metrics by the name you've set as your ENVIRONMENT variable in the begining of the Hot Session. Be aware it may take a couple minutes for your new metric to appear.
+### 📌 Task #4: Finding your metric
+
+Open the Data Explorer and search metrics by the name you've set as your ENVIRONMENT variable in the begining of the Hot Session. Be aware it may take a couple minutes for your new metric to appear.
 
 ![Settings](../../../assets/images/03-01-metrics.png)
 
