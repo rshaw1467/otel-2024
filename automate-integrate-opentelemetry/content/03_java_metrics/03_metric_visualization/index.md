@@ -8,7 +8,7 @@ Now that we have our metrics in Dynatrace we need to create a business & observa
 
 #### 📌 1 - Upload `Daily Sales - Business Dashbaord`
 
-Copy the following JSON to a file and save it as `Shop Business Health.json`. 
+Copy the following JSON to a file and save it as `Shop Business Health.json` (there is a quick copy button in the top right corner). 
 
 <details>
   <summary>Expand for dashboard JSON</summary>
