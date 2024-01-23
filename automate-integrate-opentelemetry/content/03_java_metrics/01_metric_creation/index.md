@@ -21,7 +21,7 @@ In the file `src/main/shop/FrontendServer.java` on line 47 create a new LongCoun
   <summary>Expand to copy and paste the code</summary>
 
   ```java
-private static final LongCounter attemptedPurchasesCounter = meter.counterBuilder("shop." + environment + ".purchases.attempted").setDescription("Attempted number of purchases").build();
+private static final LongCounter attemptedPurchasesCounter = meter.counterBuilder("shop.purchases.attempted").setDescription("Attempted number of purchases").build();
   ```
 </details>
 
@@ -29,9 +29,9 @@ private static final LongCounter attemptedPurchasesCounter = meter.counterBuilde
 
 **Your Task:** Create a function that will pass a measurement to your instrument 
 
-In the file `src/main/shop/FrontendServer.java` after line 153 create a new function called `reportAttemptedPurchases`, taking `product` as a parameter, and adding 1 to our expectedPurchases `instrument`.
+In the file `src/main/shop/FrontendServer.java` after line 151 create a new function called `reportAttemptedPurchases`, taking `product` as a parameter, and adding 1 to our expectedPurchases `instrument`.
 
-Hint: this will be almost exactly the same as the `reportPurchases` function starting on line 76. 
+Hint: this will be almost exactly the same as the `reportPurchases` function starting on line 138. 
 
 <details>
   <summary>Expand to copy and paste the code</summary>
@@ -60,7 +60,7 @@ reportAttemptedPurchases(product);
 Seen inline:
   ```diff
 	public static String handlePlaceOrder(HttpExchange exchange) throws Exception {
-		// log.info("Frontend received request: " + exchange.getRequestURI().toString());
+		// log.info("Placing order");
 		Product product = Product.random();
 		String productID = product.getID();
 		reportExpectedRevenue(product);
