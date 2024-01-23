@@ -35,3 +35,9 @@ If you find it too sensitive play with the settings labeled `Advanced model prop
 ![Alert Preview](../../../assets/images/03-02-violating_samples.png)
 
 ![Sliding Window](../../../assets/images/03-02-sliding-window-example.jpg)
+
+Set the Title in the Event template and click `Save Changes`
+
+| Field | Value |
+| ------ | ------------- |
+| Title | `Connections Error`  |
