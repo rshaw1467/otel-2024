@@ -32,11 +32,7 @@ This should trigger a preview based on past data where alerts would have trigger
 
 If you find it too sensitive play with the settings labeled `Advanced model properties` to adjust the alerting, dealerting, and sample period. 
 
-![Alert Preview](../../../assets/images/03-02-violating_samples.png)
-
-![Sliding Window](../../../assets/images/03-02-sliding-window-example.jpg)
-
-Set the Title in the Event template and click `Save Changes`
+Finally, set the Title in the Event template and click `Save Changes`
 
 | Field | Value |
 | ------ | ------------- |
