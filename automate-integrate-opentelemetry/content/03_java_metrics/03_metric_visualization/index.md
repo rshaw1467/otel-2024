@@ -6,7 +6,7 @@ Now that we have our metrics in Dynatrace we need to create a business & observa
 
 ## Dashboarding
 
-#### 📌 1 - Upload `Daily Sales - Business Dashbaord`
+#### 📌 1 - Upload `Shop Business Health`
 
 Copy the following JSON to a file and save it as `Shop Business Health.json`. 
 
@@ -21,7 +21,7 @@ Copy the following JSON to a file and save it as `Shop Business Health.json`.
     ],
     "clusterVersion": "1.283.84.20240122-091713"
   },
-  "id": "f00f09cc-eb57-4f83-ac3f-068078558e4d",
+  "id": "dcd6b778-4577-45fb-8915-a7a09721f264",
   "dashboardMetadata": {
     "name": "Shop Business Health",
     "shared": false,
@@ -653,12 +653,26 @@ Copy the following JSON to a file and save it as `Shop Business Health.json`.
           },
           "yAxes": []
         },
-        "thresholds": []
+        "heatmapSettings": {
+          "yAxis": "VALUE"
+        },
+        "thresholds": [],
+        "tableSettings": {
+          "hiddenColumns": []
+        },
+        "graphChartSettings": {
+          "connectNulls": false
+        },
+        "honeycombSettings": {
+          "showHive": true,
+          "showLegend": true,
+          "showLabels": false
+        }
       },
       "metricExpressions": []
     },
     {
-      "name": "Backend Error Rate",
+      "name": "Backend Failure Count",
       "tileType": "DATA_EXPLORER",
       "configured": true,
       "bounds": {
@@ -668,7 +682,10 @@ Copy the following JSON to a file and save it as `Shop Business Health.json`.
         "height": 342
       },
       "tileFilter": {},
-      "isAutoRefreshDisabled": false
+      "isAutoRefreshDisabled": false,
+      "customName": "Backend Error Rate",
+      "queries": [],
+      "metricExpressions": []
     },
     {
       "name": "Backend Response Time",
