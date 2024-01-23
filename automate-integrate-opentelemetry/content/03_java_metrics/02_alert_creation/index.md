@@ -36,4 +36,4 @@ Finally, set the Title in the Event template and click `Save Changes`
 
 | Field | Value |
 | ------ | ------------- |
-| Title | `Connections Error`  |
+| Title | `Active Connections Error`  |
