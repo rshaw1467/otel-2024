@@ -2,7 +2,7 @@
 
 #### 📌 Task
 
-Lets create an Auto Adaptive baseline metric event for the `shop.<NAME>.database.connections.active` metric. 
+Lets create an Auto Adaptive baseline metric event for the `shop.database.connections.active` metric. 
 
 Navigate to `Settings` > `Anomoly detection` > `Metric Events` > `Add Metric Event`
 
@@ -12,14 +12,14 @@ Set the following:
 | ------ | ------------- |
 | Summary | `Shop: Connections Active`  |
 | Type | `Metric Selector` |
-| Metric selector | `shop.<NAME>.database.connections.active:splitBy():sort(value(auto,descending)):limit(20)` |
+| Metric selector | `shop.database.connections.active:splitBy():sort(value(auto,descending)):limit(20)` |
 
 Set the following in the `Monitoring strategy` section:
 
 | Field | Value |
 | ------ | ------------- |
 | Model Type | `Static threshold`  |
-| Number of signal fluctuations | `28` |
+| Threshold | `28` |
 | Alert condition | `Alert if metric is above` | 
 
 Then in Alert Preview:
