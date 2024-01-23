@@ -14,8 +14,8 @@ Reference: Dynatrace documentation
 **Your Task:** Create an addtional LongCounter to track attempted Purchases
 
 In the file `src/main/shop/FrontendServer.java` on line 47 create a new LongCounter object called `expectedPurchaseCounter` (similar to line 43,44,45) with the following properties:
-- name:`"shop.purchases.expected"`
-- description:`"Number of expected purchases"`
+- name:`shop.purchases.expected`
+- description:`Number of expected purchases`
 
 <details>
   <summary>Expand to copy and paste the code</summary>
