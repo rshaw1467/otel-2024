@@ -29,9 +29,9 @@ private static final LongCounter attemptedPurchasesCounter = meter.counterBuilde
 
 **Your Task:** Create a function that will pass a measurement to your instrument 
 
-In the file `src/main/shop/FrontendServer.java` after line 151 create a new function called `reportAttemptedPurchases`, taking `product` as a parameter, and adding 1 to our expectedPurchases `instrument`.
+In the file `src/main/shop/FrontendServer.java` after line 152 create a new function called `reportAttemptedPurchases`, taking `product` as a parameter, and adding 1 to our expectedPurchases `instrument`.
 
-Hint: this will be almost exactly the same as the `reportPurchases` function starting on line 138. 
+Hint: this will be almost exactly the same as the `reportPurchases` function starting on line 139. 
 
 <details>
   <summary>Expand to copy and paste the code</summary>
