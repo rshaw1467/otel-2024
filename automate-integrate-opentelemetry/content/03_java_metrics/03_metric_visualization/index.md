@@ -1,6 +1,6 @@
 ## Metric Visualization & Analysis
 
-Now that we have our metrics in Dynatrace we need to create a business & observability dashboard. 
+Now that we have our metrics in Dynatrace lets create a visualization for our Business and Observability metrics. 
 
 ---
 

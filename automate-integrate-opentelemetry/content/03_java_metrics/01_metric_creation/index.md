@@ -84,7 +84,7 @@ Then restart your applicaiton:
 
 ### 📌 Task #4: Finding your metric
 
-Open the Data Explorer and search metrics by the name you've set as your ENVIRONMENT variable in the begining of the Hot Session. Be aware it may take a couple minutes for your new metric to appear.
+Open the Data Explorer and search `Text:` for `shop` to find the custom metrics. Be aware it may take a couple minutes for your new metric to appear.
 
 ![Settings](../../../assets/images/03-01-Metrics.png)
 
@@ -92,7 +92,7 @@ As part of the OpenTelemetrey auto-isntrumentation some metrics are provided out
 
 [Java: Supported libraries, frameworks, application servers, and JVMs](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/supported-libraries.md#supported-libraries-frameworks-application-servers-and-jvms)
 
-To see the metrics that are provided out of the box in our usecase naviate to the Metric Explorer and search for `process.runtime`. 
+To see the metrics that are provided out of the box by opentelemetry search `process.runtime`. 
 
 ![Settings](../../../assets/images/03-01-metric_process_runtime.png)
 

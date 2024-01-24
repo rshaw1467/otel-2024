@@ -2,7 +2,7 @@
 
 #### 📌 Task
 
-Lets create an Auto Adaptive baseline metric event for the `shop.database.connections.active` metric. 
+Lets create an event based off of the `shop.database.connections.active` metric. 
 
 Navigate to `Settings` > `Anomoly detection` > `Metric Events` > `Add Metric Event`
 
